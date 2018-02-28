@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   post '/signup', to: 'auth#sign_up'
   get '/current_user', to: 'auth#show'
 
+  mount ActionCable.server => '/cable'
+
 end
