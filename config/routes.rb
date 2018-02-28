@@ -9,4 +9,8 @@ Rails.application.routes.draw do
     end
   end
 
+  post '/auth', to: 'auth#create'
+  post '/signup', to: 'auth#sign_up'
+  get '/current_user', to: 'auth#show'
+
 end
