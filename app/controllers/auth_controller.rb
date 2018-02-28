@@ -9,7 +9,8 @@ class AuthController < ApplicationController
      user = User.find_by(user_name: params[:user_name])
      if user.present? && user.authenticate(params[:password])
        created_jwt = issue_token({id: user.id})
-       render json: {user: user, jwt: created_jwt}
+       serialized_user = ActiveModelSerializers::Adapter::Json.new(UserSerializer.new(user)).serializable_hash
+       render json: {user: serialized_user, jwt: created_jwt}
      else
        render json: {
          error: 'Username or password incorrect'
