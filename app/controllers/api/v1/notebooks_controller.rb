@@ -24,6 +24,7 @@ class Api::V1::NotebooksController < ApplicationController
     @notebook.update(notebook_params)
     if @notebook.save
       render json: @notebook
+      NotebooksChannel.broadcast_to(@notebook, @notebook)
     else
       render json: {errors: @notebook.errors.full_messages}, status: 422
     end
@@ -38,7 +39,7 @@ class Api::V1::NotebooksController < ApplicationController
 private
 
   def notebook_params
-    params.permit(:user_id, :lecture_id, :content)
+    params.require(:notebook).permit(:user_id, :lecture_id, :content)
   end
 
 end

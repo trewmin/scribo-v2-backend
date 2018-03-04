@@ -13,6 +13,7 @@ class Api::V1::LecturesController < ApplicationController
   def create
     @lecture = Lecture.new(lecture_params)
     if @lecture.save
+      params["users"].map{|user| user["id"]}.each{|i| User.find(i).lectures << @lecture}
       render json: @lecture
     else
       render json: {errors: @lecture.errors.full_messages}, status: 422
@@ -38,7 +39,7 @@ class Api::V1::LecturesController < ApplicationController
 private
 
   def lecture_params
-    params.permit(:title, :date_time, :admin_id)
+    params.require(:lecture).permit(:title, :date_time, :admin_id, :users)
   end
 
 end
