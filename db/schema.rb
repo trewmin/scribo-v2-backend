@@ -26,7 +26,9 @@ ActiveRecord::Schema.define(version: 20180226204018) do
   create_table "notebooks", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "lecture_id"
+    t.string "title"
     t.string "content"
+    t.string "video_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lecture_id"], name: "index_notebooks_on_lecture_id"

@@ -22,6 +22,7 @@ class Api::V1::NotebooksController < ApplicationController
   def update
     @notebook = Notebook.find(params[:id])
     @notebook.update(notebook_params)
+    @notebook.content = params[:content]
     if @notebook.save
       render json: @notebook
       NotebooksChannel.broadcast_to(@notebook, @notebook)
@@ -39,7 +40,7 @@ class Api::V1::NotebooksController < ApplicationController
 private
 
   def notebook_params
-    params.require(:notebook).permit(:user_id, :lecture_id, :content)
+    params.require(:notebook).permit(:id, :user_id, :lecture_id, :content, :updated_at, :video_id)
   end
 
 end

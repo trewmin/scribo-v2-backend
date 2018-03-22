@@ -39,7 +39,7 @@ class Api::V1::LecturesController < ApplicationController
 private
 
   def lecture_params
-    params.require(:lecture).permit(:title, :date_time, :admin_id, :users)
+    params.require(:lecture).permit(:title, :admin_id, :users)
   end
 
 end
